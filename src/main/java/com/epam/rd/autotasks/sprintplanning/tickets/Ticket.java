@@ -4,7 +4,7 @@ public class Ticket {
     private final int id;
     private final String name;
     private final int estimate;
-    private boolean isTicketCompleted;
+    protected boolean isTicketCompleted = false;
 
 
     public Ticket(int id, String name, int estimate) {
