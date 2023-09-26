@@ -1,9 +1,9 @@
 package com.epam.rd.autotasks.sprintplanning.tickets;
 
 public class Ticket {
-    private final int id;
-    private final String name;
-    private final int estimate;
+    protected final int id;
+    protected final String name;
+    protected final int estimate;
     protected boolean isTicketCompleted = false;
 
 
