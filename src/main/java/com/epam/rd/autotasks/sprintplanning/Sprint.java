@@ -6,29 +6,52 @@ import com.epam.rd.autotasks.sprintplanning.tickets.UserStory;
 
 public class Sprint {
     private final int capacity;
-    private final int ticketsLimit;
+    //private final int ticketsLimit;
     private Ticket[] tickets;
+    private int numInArr = 0;
+    private int totalEstimate = 0;
 
     public Sprint(int capacity, int ticketsLimit) {
         this.capacity = capacity;
-        this.ticketsLimit = ticketsLimit;
+        //this.ticketsLimit = ticketsLimit;
+        this.tickets = new Ticket[ticketsLimit];
     }
 
     public boolean addUserStory(UserStory userStory) {
-        throw new UnsupportedOperationException("Implement this method");
+        if (ticketUnsuitable(userStory)) return false;
+        else {
+            //
+            return true;
+        }
     }
 
     public boolean addBug(Bug bugReport) {
-        throw new UnsupportedOperationException("Implement this method");
+        if (ticketUnsuitable(bugReport)) return false;
+        else {
+            addTicket(bugReport);
+            return true;
+        }
+    }
+
+    private void addTicket(Ticket ticket) {
+        tickets[numInArr] = ticket;
+        numInArr++;//
+
+        this.totalEstimate += ticket.getEstimate();
+    }
+
+    private boolean ticketUnsuitable(Ticket ticket) {
+        return (ticket == null || ticket.isCompleted()
+                || (totalEstimate + ticket.getEstimate() >= capacity));
     }
 
     public Ticket[] getTickets() { return tickets.clone(); }
 
     public int getTotalEstimate() {
-        int sum = 0;
+        /*int sum = 0;
         for (Ticket ticket : tickets)
-            sum += ticket.getEstimate();
+            sum += ticket.getEstimate();*/
 
-        return sum;
+        return totalEstimate;
     }
 }
