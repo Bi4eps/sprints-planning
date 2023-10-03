@@ -5,9 +5,13 @@ import com.epam.rd.autotasks.sprintplanning.tickets.Ticket;
 import com.epam.rd.autotasks.sprintplanning.tickets.UserStory;
 
 public class Sprint {
+    private final int capacity;
+    private final int ticketsLimit;
+    private Ticket[] tickets;
 
     public Sprint(int capacity, int ticketsLimit) {
-        throw new UnsupportedOperationException("Implement this method");
+        this.capacity = capacity;
+        this.ticketsLimit = ticketsLimit;
     }
 
     public boolean addUserStory(UserStory userStory) {
@@ -18,11 +22,13 @@ public class Sprint {
         throw new UnsupportedOperationException("Implement this method");
     }
 
-    public Ticket[] getTickets() {
-        throw new UnsupportedOperationException("Implement this method");
-    }
+    public Ticket[] getTickets() { return tickets.clone(); }
 
     public int getTotalEstimate() {
-        throw new UnsupportedOperationException("Implement this method");
+        int sum = 0;
+        for (Ticket ticket : tickets)
+            sum += ticket.getEstimate();
+
+        return sum;
     }
 }
