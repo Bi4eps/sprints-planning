@@ -21,6 +21,7 @@ public class Sprint {
         if (ticketUnsuitable(userStory)) return false;
         else {
             //
+            addTicket(userStory);
             return true;
         }
     }
@@ -41,11 +42,14 @@ public class Sprint {
     }
 
     private boolean ticketUnsuitable(Ticket ticket) {
-        return (ticket == null || ticket.isCompleted()
-                || (totalEstimate + ticket.getEstimate() >= capacity));
+        return (numInArr >= tickets.length
+                || ticket == null || ticket.isCompleted()
+                || (totalEstimate + ticket.getEstimate() > capacity));
     }
 
-    public Ticket[] getTickets() { return tickets.clone(); }
+    public Ticket[] getTickets() {
+        return tickets.clone();
+    }
 
     public int getTotalEstimate() {
         /*int sum = 0;
