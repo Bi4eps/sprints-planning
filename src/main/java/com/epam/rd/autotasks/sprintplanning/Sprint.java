@@ -4,17 +4,18 @@ import com.epam.rd.autotasks.sprintplanning.tickets.Bug;
 import com.epam.rd.autotasks.sprintplanning.tickets.Ticket;
 import com.epam.rd.autotasks.sprintplanning.tickets.UserStory;
 
+import java.util.ArrayList;
+
 public class Sprint {
     private final int capacity;
-    //private final int ticketsLimit;
-    private Ticket[] tickets;
-    private int numInArr = 0;
+    private final int ticketsLimit;
+    private ArrayList<Ticket> tickets = new ArrayList<>();
+    //private int numInArr = 0;
     private int totalEstimate = 0;
 
     public Sprint(int capacity, int ticketsLimit) {
         this.capacity = capacity;
-        //this.ticketsLimit = ticketsLimit;
-        this.tickets = new Ticket[ticketsLimit];
+        this.ticketsLimit = ticketsLimit;
     }
 
     public boolean addUserStory(UserStory userStory) {
@@ -35,20 +36,22 @@ public class Sprint {
     }
 
     private void addTicket(Ticket ticket) {
-        tickets[numInArr] = ticket;
-        numInArr++;//
-
+        tickets.add(ticket);
         this.totalEstimate += ticket.getEstimate();
     }
 
     private boolean ticketUnsuitable(Ticket ticket) {
-        return (numInArr >= tickets.length
+        return (tickets.size() >= ticketsLimit
                 || ticket == null || ticket.isCompleted()
                 || (totalEstimate + ticket.getEstimate() > capacity));
     }
 
     public Ticket[] getTickets() {
-        return tickets.clone();
+        Ticket[] output = new Ticket[tickets.size()];
+        for (int i = 0; i < tickets.size(); i++) {
+            output[i] = tickets.get(i);
+        }
+        return output;
     }
 
     public int getTotalEstimate() {
